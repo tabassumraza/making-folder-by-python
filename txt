@@ -1,0 +1,22 @@
+import os
+
+# Create 6 documents with the extension '.txt' and name them 'Opps features'
+for i in range(1, 7):
+    filename = f"Opps features{i}.txt"
+    with open(filename, 'w') as file:
+        file.write("This is document {}.".format(i))
+# Get the list of documents
+document_list = [f"Opps features{i}.txt" for i in range(1, 7)]
+# Create the 'Documents' folder
+folder_name = 'Documents'
+os.makedirs(folder_name, exist_ok=True)
+# Create subfolders with the same names as the list elements
+for document in document_list:
+    subfolder_name = os.path.join(folder_name, os.path.splitext(document)[0])
+    os.makedirs(subfolder_name, exist_ok=True)
+# Move the documents into the respective subfolders
+for document in document_list:
+    subfolder_name = os.path.splitext(document)[0]
+    source_path = document
+    destination_path = os.path.join(folder_name, subfolder_name, document)
+    os.rename(source_path, destination_path)
